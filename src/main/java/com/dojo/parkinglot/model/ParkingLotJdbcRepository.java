@@ -1,5 +1,6 @@
 package com.dojo.parkinglot.model;
 
+import com.dojo.parkinglot.model.car.Vehicle;
 import com.dojo.parkinglot.tools.Exceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,8 +129,8 @@ public class ParkingLotJdbcRepository implements ParkingLotRepositoryInterface {
                 , new PropertiesRowMapper(), name);
     }
 
-    public boolean findByLicensePlate(String licensePlate) {
-        return false;
+    public Vehicle findByLicensePlate(String licensePlate) {
+        return null;
     }
 }
 

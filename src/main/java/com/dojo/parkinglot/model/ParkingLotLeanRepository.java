@@ -1,5 +1,7 @@
 package com.dojo.parkinglot.model;
 
+import com.dojo.parkinglot.model.car.GenericCar;
+import com.dojo.parkinglot.model.car.Vehicle;
 import com.dojo.parkinglot.tools.Exceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +17,6 @@ import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 @Primary
 @Component("parkingLotRepository")
@@ -86,14 +86,8 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public Integer saveProperties(ParkingLotProperties properties) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("name", properties.getName());
-        parameters.put("genericSize", properties.getGenericSize());
-        parameters.put("electricSize", properties.getElectricSize());
-
-        Number key = insert.executeAndReturnKey(parameters);
-        LOG.debug(String.format("Generated db key: %s", key));
-        return key.intValue();
+        this.properties = properties;
+        return 1;
     }
 
     @Override
@@ -124,16 +118,13 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public ParkingLotProperties getPropertiesByName(String name) {
-        if (template == null) {
-            throw new RuntimeException("template is null!");
-        }
-        return template.queryForObject("select * from " + PROPERTIES_TABLE + " where name=?"
-                , new PropertiesRowMapper(), name);
+        seed();
+        return properties;
     }
 
     @Override
-    public boolean findByLicensePlate(String licensePlate) {
-        return (licensePlate.equals("FOO") ? true : false);
+    public Vehicle findByLicensePlate(String licensePlate) {
+        return (licensePlate.equals("FOO") ? new GenericCar() : null);
     }
 }
 

@@ -22,6 +22,8 @@ public class ParkingLot {
     @Autowired
     ParkingLotRepositoryInterface repository;
 
+    public static final String PARKING_LOT_NAME = "DanielDogShed";
+
     private ParkingLotProperties parkingLotProperties;
 
     // singleton pattern implementation
@@ -47,7 +49,7 @@ public class ParkingLot {
     fetch the properties from the database
      */
     public void init() {
-        parkingLotProperties = repository.getPropertiesByName(ParkingLotJdbcRepository.PARKING_LOT_NAME);
+        parkingLotProperties = repository.getPropertiesByName(PARKING_LOT_NAME);
         freeSpaceCounter.setFreeSpace(GenericCar.class, parkingLotProperties.getGenericSize());
         freeSpaceCounter.setFreeSpace(ElectricCar.class, parkingLotProperties.getElectricSize());
     }

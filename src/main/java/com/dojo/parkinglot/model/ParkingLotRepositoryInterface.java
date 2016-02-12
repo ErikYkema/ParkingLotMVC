@@ -1,5 +1,6 @@
 package com.dojo.parkinglot.model;
 
+import com.dojo.parkinglot.model.car.Vehicle;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -24,6 +25,6 @@ public interface ParkingLotRepositoryInterface {
 
     void seed();
 
-    boolean findByLicensePlate(String licensePlate);
+    Vehicle findByLicensePlate(String licensePlate);
 
 }

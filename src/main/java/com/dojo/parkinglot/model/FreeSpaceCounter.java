@@ -22,6 +22,7 @@ public class FreeSpaceCounter {
     private Map<Class, Integer> freeSpace = new HashMap<>();
 
     public void setFreeSpace(Class aClass, Integer size) {
+        LOG.debug("setting freespace");
         maxFreeSpace.put(aClass, size);
         freeSpace.put(aClass, size);
     }

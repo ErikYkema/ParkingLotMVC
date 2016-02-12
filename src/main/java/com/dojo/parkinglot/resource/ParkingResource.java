@@ -1,6 +1,7 @@
 package com.dojo.parkinglot.resource;
 
 import com.dojo.parkinglot.model.Student;
+import com.dojo.parkinglot.model.car.Vehicle;
 import com.dojo.parkinglot.service.ParkingService;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -66,7 +67,7 @@ public class ParkingResource implements ParkingResourceInterface {
 
 		student.setEmailAddress(emailAddress);
 
-		if (parkingService.findByLicensePlate(userName)) {
+		if (parkingService.findByLicensePlate(userName)!=null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "User Name exists. Try another user name");
 			map.put("student", student);
@@ -95,8 +96,14 @@ public class ParkingResource implements ParkingResourceInterface {
 			return Response.status(Status.PRECONDITION_FAILED).build();
 		}
 
-		boolean found = parkingService.findByLicensePlate(licensePlate);
-		if (found) {
+		Vehicle vehicle = parkingService.findByLicensePlate(licensePlate);
+		if (vehicle == null) {
+			return Response.status(Status.BAD_REQUEST)
+					.entity(new Viewable("/failure")).build();
+		}
+
+		boolean space = parkingService.getFreeSpace(vehicle);
+		if (space) {
 			LOG.debug("success");
 			return Response.ok().entity(new Viewable("/success")).build();
 		} else {
