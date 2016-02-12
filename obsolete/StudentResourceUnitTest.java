@@ -1,14 +1,8 @@
 package com.dojo.parkinglot.client;
 
-import static org.junit.Assert.assertEquals;
-
-import java.lang.reflect.Field;
-import java.text.ParseException;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
+import com.dojo.parkinglot.model.StudentInterface;
 import com.dojo.parkinglot.resource.StudentResource;
+import com.dojo.parkinglot.resource.StudentResourceInterface;
 import com.dojo.parkinglot.service.StudentService;
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.jmock.Expectations;
@@ -16,8 +10,12 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dojo.parkinglot.model.StudentInterface;
-import com.dojo.parkinglot.resource.StudentResourceInterface;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.lang.reflect.Field;
+import java.text.ParseException;
+
+import static org.junit.Assert.assertEquals;
 
 public class StudentResourceUnitTest {
 	private Mockery context;

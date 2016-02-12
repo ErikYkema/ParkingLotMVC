@@ -42,15 +42,15 @@ public class ParkingLotClient implements ParkingLotClientInterface {
 	}
 
 	public Response getEntrance() {
-		Response response = target.path("entrance").request().get(Response.class);
+		Response response = target.path("entranceXXX").request().get(Response.class);
 
 		return response;
 	}
 
 	public Response postEntrance(String licensePlate) {
-		Form form = new Form().param("licensePlate", licensePlate);
+		Form form = new Form().param("licensePlateXXX", licensePlate);
 
-		Response response = target.path("entrance").request()
+		Response response = target.path("entranceXXX").request()
 				.post(Entity.form(form));
 
 		if (response.getStatus() != Status.OK.getStatusCode()) {

@@ -97,8 +97,10 @@ public class ParkingResource implements ParkingResourceInterface {
 
 		boolean found = parkingService.findByLicensePlate(licensePlate);
 		if (found) {
+			LOG.debug("success");
 			return Response.ok().entity(new Viewable("/success")).build();
 		} else {
+			LOG.debug("failure");
 			return Response.status(Status.BAD_REQUEST)
 					.entity(new Viewable("/failure")).build();
 		}

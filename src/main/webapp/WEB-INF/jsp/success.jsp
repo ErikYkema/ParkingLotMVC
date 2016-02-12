@@ -11,6 +11,9 @@
 </head>
 <body>
 
+<h1>Entrance Success</h1>
+
+
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/parkinglot">Home</a></li>
 				<li><a href="entrance">Entrance</a></li>

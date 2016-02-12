@@ -18,7 +18,7 @@
 						<form:form id="myForm" method="post" action="entrance">
 							<fieldset>
 								<legend>Parking Lot Entrance</legend>
-									<label for="userNameInput" >License Plate</label>
+									<label for="licensePlateInput" >License Plate</label>
 										<input type="text" name="licensePlate"
 										id="licensePlateInput" placeholder="License Plate" />
 									<button>Enter the Parking Lot</button>

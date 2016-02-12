@@ -1,21 +1,17 @@
 package com.dojo.parkinglot.client;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.lang.reflect.Field;
-
+import com.dojo.parkinglot.model.StudentInterface;
+import com.dojo.parkinglot.repository.StudentRepository;
 import com.dojo.parkinglot.service.StudentService;
+import com.dojo.parkinglot.service.StudentServiceImpl;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dojo.parkinglot.model.StudentInterface;
-import com.dojo.parkinglot.repository.StudentRepository;
-import com.dojo.parkinglot.service.StudentServiceImpl;
+import java.lang.reflect.Field;
+
+import static org.junit.Assert.*;
 
 public class StudentServiceUnitTest {
 	private Mockery context;
