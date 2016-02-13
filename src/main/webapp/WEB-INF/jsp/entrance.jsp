@@ -12,7 +12,7 @@
 <body>
 
 
-				<li><a href="/parkinglot">Home</a></li>
+				<li><a href="/">Home</a></li>
 				<li class="active"><a href="entrance">Entrance</a></li>
 
 						<form:form id="myForm" method="post" action="entrance">

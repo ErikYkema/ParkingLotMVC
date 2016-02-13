@@ -1,6 +1,6 @@
 package com.dojo.parkinglot.repository;
 
-import com.dojo.parkinglot.model.StudentInterface;
+import com.dojo.parkinglot.model.old.StudentInterface;
 import org.springframework.stereotype.Repository;
 
 @Repository("studentRepository")

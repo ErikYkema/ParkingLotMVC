@@ -1,4 +1,4 @@
-package com.dojo.parkinglot.model.parkingspace;
+package com.dojo.parkinglot.domain.parkingspace;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

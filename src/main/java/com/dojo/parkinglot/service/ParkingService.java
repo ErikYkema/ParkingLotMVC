@@ -1,11 +1,13 @@
 package com.dojo.parkinglot.service;
 
-import com.dojo.parkinglot.model.StudentInterface;
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
+import com.dojo.parkinglot.model.old.StudentInterface;
 
 public interface ParkingService {
+	@Deprecated
 	StudentInterface save(StudentInterface student);
+	@Deprecated
 	boolean findByLogin(String userName, String password);
-	Vehicle findByLicensePlate(String licensePlate);
-	boolean getFreeSpace(Vehicle vehicle);
+	VehicleInterface findByLicensePlate(String licensePlate);
+	boolean getFreeSpace(VehicleInterface vehicle);
 }

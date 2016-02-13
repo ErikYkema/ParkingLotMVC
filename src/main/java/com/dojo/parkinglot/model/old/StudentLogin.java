@@ -1,4 +1,4 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.model.old;
 
 import org.springframework.stereotype.Component;
 

@@ -1,26 +1,25 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.repository;
 
-import com.dojo.parkinglot.model.car.GenericCar;
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.ParkingLotProperties;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.tools.Exceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-@Primary
-@Component("parkingLotRepository")
-public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
+//@Component("parkingLotRepository")
+public class ParkingLotJdbcRepository implements ParkingLotRepositoryInterface {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -30,14 +29,14 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
     private static final String PROPERTIES_TABLE = "PARKINGLOTPROPERTIES";
     public static final String PARKING_LOT_NAME = "DanielDogShed";
 
-    public ParkingLotLeanRepository() {
+    public ParkingLotJdbcRepository() {
         LOG.debug("constructor...");
     }
 
     @Autowired
     ParkingLotProperties properties;
 
-    //@Autowired
+    @Autowired
     public void setDataSource(DataSource dataSources) {
         LOG.debug("setDataSource...");
 
@@ -74,7 +73,7 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
     clears out the current data and reloads the application setup
      */
     public void seed() {
-        //template.execute("delete from " + PROPERTIES_TABLE);
+        template.execute("delete from " + PROPERTIES_TABLE);
 
         properties.setName(PARKING_LOT_NAME);
         properties.setGenericSize(11);
@@ -86,8 +85,14 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public Integer saveProperties(ParkingLotProperties properties) {
-        this.properties = properties;
-        return 1;
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("name", properties.getName());
+        parameters.put("genericSize", properties.getGenericSize());
+        parameters.put("electricSize", properties.getElectricSize());
+
+        Number key = insert.executeAndReturnKey(parameters);
+        LOG.debug(String.format("Generated db key: %s", key));
+        return key.intValue();
     }
 
     @Override
@@ -118,13 +123,15 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public ParkingLotProperties getPropertiesByName(String name) {
-        seed();
-        return properties;
+        if (template == null) {
+            throw new RuntimeException("template is null!");
+        }
+        return template.queryForObject("select * from " + PROPERTIES_TABLE + " where name=?"
+                , new PropertiesRowMapper(), name);
     }
 
-    @Override
-    public Vehicle findByLicensePlate(String licensePlate) {
-        return (licensePlate.equals("FOO") ? new GenericCar() : null);
+    public VehicleInterface findByLicensePlate(String licensePlate) {
+        return null;
     }
 }
 

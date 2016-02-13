@@ -1,6 +1,6 @@
-package com.dojo.parkinglot.model.parkingspace;
+package com.dojo.parkinglot.domain.parkingspace;
 
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class ElectricParkingSpace extends RegularParkingSpace {
     }
 
     @Override
-    public void parkVehicle(Vehicle eCar) {
+    public void parkVehicle(VehicleInterface eCar) {
         // wat is nodig om een electrische auto te parkeren
     }
 }

@@ -1,6 +1,7 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.repository;
 
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.ParkingLotProperties;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -25,6 +26,6 @@ public interface ParkingLotRepositoryInterface {
 
     void seed();
 
-    Vehicle findByLicensePlate(String licensePlate);
+    VehicleInterface findByLicensePlate(String licensePlate);
 
 }

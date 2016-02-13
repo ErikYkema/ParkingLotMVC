@@ -1,9 +1,10 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.domain;
 
 
-import com.dojo.parkinglot.model.car.ElectricCar;
-import com.dojo.parkinglot.model.car.GenericCar;
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.car.ElectricCar;
+import com.dojo.parkinglot.domain.car.GenericCar;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
+import com.dojo.parkinglot.repository.ParkingLotRepositoryInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,12 +65,12 @@ public class ParkingLot {
         return freeSpaceCounter;
     }
 
-    private Map<Vehicle, ParkingSpaceUsage> parkingSpaceUsages = new HashMap<>();
-    public Map<Vehicle, ParkingSpaceUsage> getParkingSpaceUsages() {
+    private Map<VehicleInterface, ParkingSpaceUsage> parkingSpaceUsages = new HashMap<>();
+    public Map<VehicleInterface, ParkingSpaceUsage> getParkingSpaceUsages() {
         return parkingSpaceUsages;
     }
 
-    public boolean requestParkingSpace(Vehicle vehicle) {
+    public boolean requestParkingSpace(VehicleInterface vehicle) {
         if (freeSpaceCounter.useSpace(vehicle)) {
             parkingSpaceUsages.put(vehicle, new ParkingSpaceUsage(vehicle));
             return true;

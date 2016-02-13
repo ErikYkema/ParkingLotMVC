@@ -1,6 +1,6 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.domain;
 
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,19 +27,19 @@ public class FreeSpaceCounter {
         freeSpace.put(aClass, size);
     }
 
-    private boolean hasSpace (Vehicle vehicle) {
+    private boolean hasSpace (VehicleInterface vehicle) {
         return (freeSpace.get(vehicle.getClass()) > 0);
     }
 
     public Map<Class, Integer> getFreeSpace() {
         return freeSpace;
     }
-    public Integer getFreeSpace(Vehicle vehicle) {
+    public Integer getFreeSpace(VehicleInterface vehicle) {
         return freeSpace.get(vehicle.getClass());
     }
 
     // TODO raise exception and not return boolean?
-    public boolean useSpace(Vehicle vehicle) {
+    public boolean useSpace(VehicleInterface vehicle) {
         if (hasSpace(vehicle)) {
             freeSpace.put(vehicle.getClass(), getFreeSpace(vehicle) - 1);
             return true;
@@ -47,7 +47,7 @@ public class FreeSpaceCounter {
         return false;
     }
 
-    public void release(Vehicle vehicle) {
+    public void release(VehicleInterface vehicle) {
         if (freeSpace.get(vehicle.getClass()) < maxFreeSpace.get(vehicle.getClass())) {
             freeSpace.put(vehicle.getClass(), getFreeSpace(vehicle) + 1);
         } else {

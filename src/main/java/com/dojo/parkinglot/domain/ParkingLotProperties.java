@@ -1,4 +1,4 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.stereotype.Component;

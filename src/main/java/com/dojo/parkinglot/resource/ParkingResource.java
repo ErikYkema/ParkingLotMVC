@@ -1,7 +1,9 @@
 package com.dojo.parkinglot.resource;
 
-import com.dojo.parkinglot.model.Student;
-import com.dojo.parkinglot.model.car.Vehicle;
+import com.dojo.parkinglot.domain.ParkingLot;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
+import com.dojo.parkinglot.model.EntranceSuccess;
+import com.dojo.parkinglot.model.old.Student;
 import com.dojo.parkinglot.service.ParkingService;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -31,6 +33,10 @@ public class ParkingResource implements ParkingResourceInterface {
 	@Autowired
 	private ParkingService parkingService;
 
+	@Autowired
+	ParkingLot parkingLot;
+
+	@Deprecated
 	@GET
 	@Path("signup")
 	@Produces(MediaType.TEXT_HTML)
@@ -38,6 +44,7 @@ public class ParkingResource implements ParkingResourceInterface {
 		return Response.ok(new Viewable("/signup")).build();
 	}
 
+	@Deprecated
 	@POST
 	@Path("signup")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -96,7 +103,7 @@ public class ParkingResource implements ParkingResourceInterface {
 			return Response.status(Status.PRECONDITION_FAILED).build();
 		}
 
-		Vehicle vehicle = parkingService.findByLicensePlate(licensePlate);
+		VehicleInterface vehicle = parkingService.findByLicensePlate(licensePlate);
 		if (vehicle == null) {
 			return Response.status(Status.BAD_REQUEST)
 					.entity(new Viewable("/failure")).build();
@@ -105,7 +112,8 @@ public class ParkingResource implements ParkingResourceInterface {
 		boolean space = parkingService.getFreeSpace(vehicle);
 		if (space) {
 			LOG.debug("success");
-			return Response.ok().entity(new Viewable("/success")).build();
+			EntranceSuccess model = new EntranceSuccess(parkingLot, vehicle);
+			return Response.ok().entity(new Viewable("/success", model)).build();
 		} else {
 			LOG.debug("failure");
 			return Response.status(Status.BAD_REQUEST)

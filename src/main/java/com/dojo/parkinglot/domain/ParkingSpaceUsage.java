@@ -1,9 +1,9 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.domain;
 
 
-import com.dojo.parkinglot.model.car.Vehicle;
-import com.dojo.parkinglot.model.parkingspace.ParkingSpace;
-import com.dojo.parkinglot.model.parkingspace.ParkingSpaceFactory;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
+import com.dojo.parkinglot.domain.parkingspace.ParkingSpace;
+import com.dojo.parkinglot.domain.parkingspace.ParkingSpaceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,7 @@ public class ParkingSpaceUsage {
 
     private Date startUsageDateTime;
 
-    public ParkingSpaceUsage(Vehicle vehicle) {
+    public ParkingSpaceUsage(VehicleInterface vehicle) {
         this.parkingSpace = ParkingSpaceFactory.createParkingSpace(vehicle.getType());
         this.startUsageDateTime = new Date();
     }

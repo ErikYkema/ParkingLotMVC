@@ -1,4 +1,4 @@
-package com.dojo.parkinglot.model;
+package com.dojo.parkinglot.domain;
 
 public enum BuildingsEnum {
     TOREN_C,
