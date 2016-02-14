@@ -26,11 +26,13 @@ public class FreeSpaceCounterTest {
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
-    FreeSpaceCounter freeSpaceCounter;
+    private FreeSpaceCounter freeSpaceCounter;
+
     @Autowired
     private GenericCar car;
+
     @Autowired
-    ElectricCar eCar;
+    private ElectricCar eCar;
 
     private static final Integer NR_OF_CARS = 10;
     private static final Integer NR_OF_ECARS = 5;

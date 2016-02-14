@@ -30,4 +30,10 @@ public class ElectricCarTest {
         assertThat(electricCar.getType().equals(ParkingSpaceTypeEnum.ELECTRIC), is(true));
     }
 
+    @Test
+    public void setLicensPlate() {
+        electricCar.setLicensePlate(licensePlate);
+        assertThat("incorrect license plate", electricCar.getLicensePlate(), is(licensePlate));
+    }
+
 }

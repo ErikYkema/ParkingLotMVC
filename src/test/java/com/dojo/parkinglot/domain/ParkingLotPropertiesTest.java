@@ -1,26 +1,28 @@
 package com.dojo.parkinglot.domain;
 
-import com.dojo.parkinglot.domain.ParkingLotProperties;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.lang.invoke.MethodHandles;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:testApplicationContext.xml")
 public class ParkingLotPropertiesTest {
+
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    @Autowired
     ParkingLotProperties properties;
-
-    @Before
-    public void setUp() {
-        properties = new ParkingLotProperties();
-    }
 
     @Test
     public void testGenericSize() throws Exception {
@@ -53,6 +55,5 @@ public class ParkingLotPropertiesTest {
         properties.setName("bar");
         assertThat(properties.getName(), is("bar"));
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.dojo.parkinglot.domain;
 
-import com.dojo.parkinglot.domain.ParkingSpaceUsage;
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.domain.parkingspace.RegularParkingSpace;
 import org.junit.Test;

@@ -27,15 +27,16 @@ public class ParkingLotTest {
 
     @Autowired
     ParkingLot parkingLot; // = ParkingLot.getParkingLot();
+
     @Autowired
     ParkingLotLeanRepository parkingLotRepository;
+
     @Autowired
     GenericCar car;
 
     @Before
     public void setUp() {
-        // todo lean setup geeft errors
-       // parkingLotRepository.setup(ParkingLotLeanRepository.Feature.CREATE_TABLES_IF_NEEDED);
+        parkingLotRepository.setup(null);
         parkingLotRepository.seed();
         parkingLot.init();
     }

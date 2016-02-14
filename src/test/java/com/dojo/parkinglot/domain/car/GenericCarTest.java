@@ -26,7 +26,6 @@ public class GenericCarTest {
     @Autowired
     private GenericCar car;
 
-    //TODO type is double now, remove (or use getClass())
     @Test
     public void newGenericCarShouldHaveCorrectType() {
         assertThat(car.getType().equals(ParkingSpaceTypeEnum.GENERIC), is(true));

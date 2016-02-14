@@ -24,6 +24,7 @@ public class ElectricParkingSpaceTest {
     @Test
     public void testParkingSpace() {
         assertNotNull(electricParkingSpace);
-
     }
+
+
 }

@@ -1,7 +1,5 @@
 package com.dojo.parkinglot.model;
 
-import com.dojo.parkinglot.domain.user.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -11,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.lang.invoke.MethodHandles;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 public class EntranceSuccessTest {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
 
    @Test
    public void entranceSuccess() {

@@ -1,14 +1,18 @@
 package com.dojo.parkinglot.repository;
 
 import com.dojo.parkinglot.domain.ParkingLotProperties;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.util.UUID;
 
@@ -21,10 +25,21 @@ public class ParkingLotJdbcRepositoryTest {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @Autowired
-    ParkingLotLeanRepository repository;
-    @Autowired
-    ParkingLotProperties properties;
+    private ParkingLotJdbcRepository repository;
+    private ParkingLotProperties properties;
+    private DataSource datasource;
+
+    @Before
+    public void setup () {
+        properties = new ParkingLotProperties();
+        repository = new ParkingLotJdbcRepository();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("testApplicationContext.xml");
+        datasource = (DataSource)applicationContext.getBean("dataSource");
+        repository.setProperties(properties);
+        repository.setDataSource(datasource);
+        repository.setup(ParkingLotRepositoryInterface.Feature.DROP_AND_CREATE);
+        repository.seed();
+    }
 
     @Test
     public void testSavePropertiesGetById() throws Exception {

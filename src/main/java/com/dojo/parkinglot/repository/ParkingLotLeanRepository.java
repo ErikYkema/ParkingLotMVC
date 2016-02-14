@@ -34,8 +34,9 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
     @Autowired
     ParkingLotProperties properties;
 
+    @Override
     public void setup(Feature feature) {
-
+        // nothing for lean setup?
     }
 
     /*

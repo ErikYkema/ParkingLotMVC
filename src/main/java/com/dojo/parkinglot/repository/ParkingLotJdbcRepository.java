@@ -33,8 +33,12 @@ public class ParkingLotJdbcRepository implements ParkingLotRepositoryInterface {
         LOG.debug("constructor...");
     }
 
+    private ParkingLotProperties properties;
+
     @Autowired
-    ParkingLotProperties properties;
+    public void setProperties(ParkingLotProperties properties) {
+        this.properties = properties;
+    }
 
     @Autowired
     public void setDataSource(DataSource dataSources) {
@@ -55,7 +59,8 @@ public class ParkingLotJdbcRepository implements ParkingLotRepositoryInterface {
                 try {
                     template.execute("drop table " + PROPERTIES_TABLE);
                 } catch (Exception ex) {
-                    Exceptions.handle(ex, "X0Y32");
+                    //TODO avoid error in first usage
+                   // Exceptions.handle(ex, "X0Y32");
                 }
                 break;
             default:
