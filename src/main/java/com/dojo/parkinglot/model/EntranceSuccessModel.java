@@ -6,7 +6,7 @@ import com.dojo.parkinglot.domain.car.VehicleInterface;
 
 import java.util.Map;
 
-public class EntranceSuccess {
+public class EntranceSuccessModel {
     private Map<VehicleInterface, ParkingSpaceUsage> usages;
     private VehicleInterface vehicle;
     public Map<VehicleInterface, ParkingSpaceUsage> getUsages() {
@@ -18,7 +18,7 @@ public class EntranceSuccess {
 
 
 
-    public EntranceSuccess(ParkingLot parkingLot, VehicleInterface vehicle) {
+    public EntranceSuccessModel(ParkingLot parkingLot, VehicleInterface vehicle) {
         this.usages = parkingLot.getParkingSpaceUsages();
         this.vehicle = vehicle;
     }

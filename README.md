@@ -12,7 +12,9 @@ And some minor stuff like:
  
   
 Instructions:
-- run the webapp with maven tomcat7:run-war
+- run the webapp with 
+-- maven clean (to force latest class versions to deployable)
+-- maven tomcat7:run-war (includes running all tests...)
 - point the browser to http://localhost:8080
 - go to the maintenance page
 - setup and fill the database with cars/license plates and parking lot properties

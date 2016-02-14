@@ -1,6 +1,5 @@
 package com.dojo.parkinglot.domain;
 
-import com.dojo.parkinglot.domain.ParkingLot;
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.repository.ParkingLotLeanRepository;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -38,7 +37,7 @@ public class ParkingLotTest {
     public void setUp() {
         parkingLotRepository.setup(null);
         parkingLotRepository.seed();
-        parkingLot.init();
+        //parkingLot.init();
     }
 
     // integration test

@@ -1,6 +1,7 @@
 package com.dojo.parkinglot.domain;
 
 import com.dojo.parkinglot.domain.car.VehicleInterface;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -54,4 +55,11 @@ public class FreeSpaceCounter {
             throw new RuntimeException("Cannot release beyond upper limit!");
         }
     }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
+    }
+
+    public String getDescription() {return toString();}
 }

@@ -4,17 +4,13 @@ import com.dojo.parkinglot.domain.ParkingLotProperties;
 import com.dojo.parkinglot.domain.car.ElectricCar;
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
-import com.dojo.parkinglot.tools.Exceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,16 +88,20 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public VehicleInterface findByLicensePlate(String licensePlate) {
+        VehicleInterface vehicle = null;
         switch (licensePlate) {
             case "BAR":
-            return null;
+            break;
             case "BAZ":
-                return null;
+                break;
             case "ELEC":
-                return new ElectricCar(licensePlate + new Date().hashCode());
+                vehicle = new ElectricCar(licensePlate + new Date().hashCode());
+                break;
             default:
-                return new GenericCar(licensePlate);
+                vehicle = new GenericCar(licensePlate);
         }
+        LOG.debug("Vehicle found: " + (vehicle == null ? "null" : vehicle.getType()));
+        return vehicle;
     }
 }
 

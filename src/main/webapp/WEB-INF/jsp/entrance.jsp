@@ -12,8 +12,9 @@
 <body>
 <jsp:include page="header.jsp" />
 <h2>Parking lot entrance</h2>
-<image src="/assets/img/booth.jpg" width=100></a>
+<image src="/assets/img/booth.jpg" width=150></a>
 </p>
+
 <form:form id="myForm" method="post" action="entrance">
     <fieldset>
         <legend>Parking Lot Entrance</legend>

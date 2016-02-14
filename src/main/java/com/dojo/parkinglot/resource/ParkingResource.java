@@ -1,10 +1,10 @@
 package com.dojo.parkinglot.resource;
 
-import com.dojo.parkinglot.domain.ParkingLot;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
-import com.dojo.parkinglot.model.EntranceSuccess;
-import com.dojo.parkinglot.model.old.Student;
-import com.dojo.parkinglot.service.ParkingService;
+import com.dojo.parkinglot.model.AdminModel;
+import com.dojo.parkinglot.model.EntranceSuccessModel;
+import com.dojo.parkinglot.model.old.EntranceModel;
+import com.dojo.parkinglot.service.ParkingServiceInterface;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.slf4j.Logger;
@@ -18,10 +18,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @Path("parkingResource")
@@ -31,66 +27,16 @@ public class ParkingResource implements ParkingResourceInterface {
 			LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Autowired
-	private ParkingService parkingService;
+	private ParkingServiceInterface parkingService;
 
-	@Autowired
-	ParkingLot parkingLot;
 
-	@Deprecated
-	@GET
-	@Path("signup")
-	@Produces(MediaType.TEXT_HTML)
-	public Response signup() {
-		return Response.ok(new Viewable("/signup")).build();
-	}
-
-	@Deprecated
-	@POST
-	@Path("signup")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.TEXT_HTML)
-	public Response signup(@FormParam("userName") String userName,
-			@FormParam("password") String password,
-			@FormParam("firstName") String firstName,
-			@FormParam("lastName") String lastName,
-			@FormParam("dateOfBirth") String dateOfBirth,
-			@FormParam("emailAddress") String emailAddress)
-			throws ParseException {
-
-		if (userName == null || password == null || firstName == null
-				|| lastName == null || dateOfBirth == null
-				|| emailAddress == null) {
-			return Response.status(Status.PRECONDITION_FAILED).build();
-		}
-
-		Student student = new Student();
-		student.setUserName(userName);
-		student.setPassword(password);
-		student.setFirstName(firstName);
-		student.setLastName(lastName);
-
-		student.setDateOfBirth(new java.sql.Date(new SimpleDateFormat(
-				"MM/dd/yyyy").parse(dateOfBirth.substring(0, 10)).getTime()));
-
-		student.setEmailAddress(emailAddress);
-
-		if (parkingService.findByLicensePlate(userName)!=null) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("message", "User Name exists. Try another user name");
-			map.put("student", student);
-			return Response.status(Status.BAD_REQUEST)
-					.entity(new Viewable("/signup", map)).build();
-		} else {
-			parkingService.save(student);
-			return Response.ok().entity(new Viewable("/entrance")).build();
-		}
-	}
 
 	@GET
 	@Path("entrance")
 	@Produces(MediaType.TEXT_HTML)
 	public Response entrance() {
-		return Response.ok(new Viewable("/entrance")).build();
+		EntranceModel model = new EntranceModel(parkingService.getParkingLot().getFreeSpaceCounter());
+		return Response.ok(new Viewable("/entrance", model)).build();
 	}
 
 	@POST
@@ -112,12 +58,20 @@ public class ParkingResource implements ParkingResourceInterface {
 		boolean space = parkingService.getFreeSpace(vehicle);
 		if (space) {
 			LOG.debug("success");
-			EntranceSuccess model = new EntranceSuccess(parkingLot, vehicle);
+			EntranceSuccessModel model = new EntranceSuccessModel(parkingService.getParkingLot(), vehicle);
 			return Response.ok().entity(new Viewable("/success", model)).build();
 		} else {
 			LOG.debug("failure");
 			return Response.status(Status.BAD_REQUEST)
 					.entity(new Viewable("/failure")).build();
 		}
+	}
+
+	@GET
+	@Path("admin")
+	@Produces(MediaType.TEXT_HTML)
+	public Response admin() {
+		AdminModel model = new AdminModel(parkingService.getParkingLot());
+		return Response.ok(new Viewable("/admin", model)).build();
 	}
 }
