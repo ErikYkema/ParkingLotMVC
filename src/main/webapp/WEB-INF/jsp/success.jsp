@@ -23,12 +23,23 @@
 			</ul>
 
             License Plate ${it.vehicle.licensePlate} of type ${it.vehicle.type} was granted access to the parking lot.
-
-            Current state of the parking lot:
-            <c:forEach items="${it.usages}" var="usage">
-            Key: ${usage.key} Value: ${usage.value}
-            </c:forEach>
-
+</p>
+            <h2>Current state of the parking lot:</h2>
+</p>
+<table cellpadding="15" border="1" style="background-color: #ffffcc;">
+<tr>
+<th>LicensePlate</th><th>car type</th><th>parking space type</th><th>usage start</th><th>usage duration</th>
+</tr>
+<c:forEach items="${it.usages}" var="usage">
+    <tr>
+    <td>${usage.key.licensePlate}</td>
+    <td>${usage.key.type}</td>
+    <td>${usage.value.parkingSpace.type}</td>
+    <td>${usage.value.startUsageDateTime}</td>
+    <td>${usage.value.parkingDuration}</td>
+    </tr>
+</c:forEach>
+<table>
 
 </body>
 </html>

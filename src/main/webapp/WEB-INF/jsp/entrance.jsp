@@ -10,6 +10,10 @@
 <title>Parking Lot Entrance</title>
 </head>
 <body>
+<image src="assets/img/bol_com_logo.png"></a>
+<h1>Parking lot entrance</h1>
+<image src="/assets/img/booth.jpg"></a>
+</p>
 
 
 				<li><a href="/">Home</a></li>

@@ -9,7 +9,7 @@ public class ParkingSpaceFactory {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static ParkingSpace createParkingSpace(ParkingSpaceTypeEnum type) {
+    public static ParkingSpaceInterface createParkingSpace(ParkingSpaceTypeEnum type) {
         switch (type) {
         case GENERIC:
             return new RegularParkingSpace();

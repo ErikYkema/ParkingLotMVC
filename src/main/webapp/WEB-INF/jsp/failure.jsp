@@ -10,12 +10,14 @@
 
 </head>
 <body>
-
-
+<image src="/assets/img/bol_com_logo.png"></a>
 				<li><a href="/parkinglot">Home</a></li>
 				<li><a href="entrance">Entrance</a></li>
 
-			<h3 >Student Enrollment Login failure</h3>
+			<h3 >Parking Entrance request failure</h3>
 				<strong>Oh snap!</strong> Something is wrong. Change and try submitting again.
+</p>
+<image src="/assets/img/cantparkhere.jpg"></a>
+
 </body>
 </html>

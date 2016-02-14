@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 import java.lang.invoke.MethodHandles;
 
 @Component
-public class RegularParkingSpace implements ParkingSpace {
+public class RegularParkingSpace implements ParkingSpaceInterface {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-    public RegularParkingSpace() {
-
+    ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.GENERIC;
+    @Override
+    public ParkingSpaceTypeEnum getType() {
+        return type;
     }
 
     @Override

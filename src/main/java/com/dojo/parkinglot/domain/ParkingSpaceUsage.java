@@ -2,7 +2,7 @@ package com.dojo.parkinglot.domain;
 
 
 import com.dojo.parkinglot.domain.car.VehicleInterface;
-import com.dojo.parkinglot.domain.parkingspace.ParkingSpace;
+import com.dojo.parkinglot.domain.parkingspace.ParkingSpaceInterface;
 import com.dojo.parkinglot.domain.parkingspace.ParkingSpaceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ public class ParkingSpaceUsage {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private ParkingSpace parkingSpace;
+    private ParkingSpaceInterface parkingSpace;
 
     private Date startUsageDateTime;
 
@@ -23,7 +23,7 @@ public class ParkingSpaceUsage {
         this.startUsageDateTime = new Date();
     }
 
-    public ParkingSpace getParkingSpace() {
+    public ParkingSpaceInterface getParkingSpace() {
         return parkingSpace;
     }
 
