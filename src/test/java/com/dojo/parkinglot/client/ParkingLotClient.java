@@ -4,7 +4,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 public class ParkingLotClient implements ParkingLotClientInterface {
 	private WebTarget target;
@@ -42,21 +41,28 @@ public class ParkingLotClient implements ParkingLotClientInterface {
 //	}
 
 	public Response getEntrance() {
-		Response response = target.path("entranceXXX").request().get(Response.class);
+		Response response = target.path("entrance").request().get(Response.class);
 
 		return response;
 	}
 
 	public Response postEntrance(String licensePlate) {
-		Form form = new Form().param("licensePlateXXX", licensePlate);
+		Form form = new Form().param("licensePlate", licensePlate);
 
-		Response response = target.path("entranceXXX").request()
+		Response response = target.path("entrance").request()
 				.post(Entity.form(form));
 
-		if (response.getStatus() != Status.OK.getStatusCode()) {
-			throw new RuntimeException();
-		}
+//		if (response.getStatus() != Status.OK.getStatusCode()) {
+//			throw new RuntimeException();
+//		}
 
 		return response;
 	}
+
+	public Response getAdmin() {
+		Response response = target.path("admin").request().get(Response.class);
+
+		return response;
+	}
+
 }

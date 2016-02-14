@@ -20,7 +20,7 @@
 </p>
 
 <h2>Size of parking lot</h2>
-<image src="/assets/img/dimensions.jpg" width=150></a>
+<image src="/assets/img/dimensions.jpg" width=200></a>
 </p>
 ${it.parkingLot.freeSpaceCounter.description}
 </p>
@@ -43,7 +43,7 @@ ${it.parkingLot.freeSpaceCounter.description}
 </c:forEach>
 <table>
 </p>
-<image src="/assets/img/maintenance-2.jpg" width=200></a>
+<image src="/assets/img/maintenance-2.jpg" width=250></a>
 </p>
 </body>
 </html>

@@ -6,14 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Failure</title>
+<title>Entrance Denied</title>
 
 </head>
 <body>
 <jsp:include page="header.jsp" />
 
-			<h3 >Parking Entrance request failure</h3>
-				<strong>Oh snap!</strong> Something is wrong. Change and try submitting again.
+<h3 >Parking Entrance request failure</h3>
+Attempted to park license Plate ${it.vehicle.licensePlate} of type ${it.vehicle.type}.
+</p>
+<strong>But ${it.message}</strong>
 </p>
 <image src="/assets/img/cantparkhere.jpg"></a>
 

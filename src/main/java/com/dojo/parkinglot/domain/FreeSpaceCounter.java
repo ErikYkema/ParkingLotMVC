@@ -32,15 +32,13 @@ public class FreeSpaceCounter {
         return (freeSpace.get(vehicle.getClass()) > 0);
     }
 
-    public Map<Class, Integer> getFreeSpace() {
-        return freeSpace;
-    }
     public Integer getFreeSpace(VehicleInterface vehicle) {
         return freeSpace.get(vehicle.getClass());
     }
 
     // TODO raise exception and not return boolean?
     public boolean useSpace(VehicleInterface vehicle) {
+        LOG.debug(String.format("useSpace() called for %s", vehicle.getClass().toString()));
         if (hasSpace(vehicle)) {
             freeSpace.put(vehicle.getClass(), getFreeSpace(vehicle) - 1);
             return true;

@@ -15,16 +15,16 @@ public class ElectricCar implements VehicleInterface {
     private final ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.ELECTRIC;
     private String licensePlate;
 
-    @Override
-    public ParkingSpaceTypeEnum getType() {
-        return type;
-    }
-
     public ElectricCar(String licensePlate) {
         this.licensePlate = licensePlate;
     }
     public ElectricCar() {
 
+    }
+
+    @Override
+    public ParkingSpaceTypeEnum getType() {
+        return type;
     }
 
     @Override

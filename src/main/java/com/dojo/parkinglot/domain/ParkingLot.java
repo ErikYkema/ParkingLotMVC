@@ -73,4 +73,15 @@ public class ParkingLot {
         return false;
     }
 
+    public boolean isParked(String licensePlate) {
+        boolean found = false;
+        for (VehicleInterface vehicle : parkingSpaceUsages.keySet()) {
+            if (vehicle.getLicensePlate().equals(licensePlate)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
 }

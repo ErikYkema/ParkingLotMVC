@@ -2,6 +2,7 @@ package com.dojo.parkinglot.resource;
 
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.model.AdminModel;
+import com.dojo.parkinglot.model.EntranceFailureModel;
 import com.dojo.parkinglot.model.EntranceSuccessModel;
 import com.dojo.parkinglot.model.old.EntranceModel;
 import com.dojo.parkinglot.service.ParkingServiceInterface;
@@ -51,19 +52,25 @@ public class ParkingResource implements ParkingResourceInterface {
 
 		VehicleInterface vehicle = parkingService.findByLicensePlate(licensePlate);
 		if (vehicle == null) {
+			EntranceFailureModel model = new EntranceFailureModel(vehicle, "car with this license plate is unknown..!");
 			return Response.status(Status.BAD_REQUEST)
-					.entity(new Viewable("/failure")).build();
+					.entity(new Viewable("/failure", model)).build();
+		}
+
+		if (parkingService.getParkingLot().isParked(vehicle.getLicensePlate())) {
+			EntranceFailureModel model = new EntranceFailureModel(vehicle, "this license plate has already claimed a spot..!");
+			return Response.status(Status.BAD_REQUEST)
+					.entity(new Viewable("/failure", model)).build();
 		}
 
 		boolean space = parkingService.getFreeSpace(vehicle);
 		if (space) {
-			LOG.debug("success");
 			EntranceSuccessModel model = new EntranceSuccessModel(parkingService.getParkingLot(), vehicle);
 			return Response.ok().entity(new Viewable("/success", model)).build();
 		} else {
-			LOG.debug("failure");
+			EntranceFailureModel model = new EntranceFailureModel(vehicle, "there is no space left for this car type..!");
 			return Response.status(Status.BAD_REQUEST)
-					.entity(new Viewable("/failure")).build();
+					.entity(new Viewable("/failure", model)).build();
 		}
 	}
 
