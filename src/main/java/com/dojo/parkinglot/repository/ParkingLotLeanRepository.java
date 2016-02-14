@@ -25,50 +25,17 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private JdbcTemplate template;
-    private SimpleJdbcInsert insert;
-
-    private static final String PROPERTIES_TABLE = "PARKINGLOTPROPERTIES";
-    public static final String PARKING_LOT_NAME = "DanielDogShed";
-
     public ParkingLotLeanRepository() {
         LOG.debug("constructor...");
     }
 
+    public static final String PARKING_LOT_NAME = "DanielDogShed";
+
     @Autowired
     ParkingLotProperties properties;
 
-    //@Autowired
-    public void setDataSource(DataSource dataSources) {
-        LOG.debug("setDataSource...");
-
-        template = new JdbcTemplate(dataSources);
-
-        insert = new SimpleJdbcInsert(dataSources)
-                .withTableName(PROPERTIES_TABLE)
-                .usingColumns("name", "genericSize", "electricSize")
-                .usingGeneratedKeyColumns("id");
-
-    }
-
     public void setup(Feature feature) {
-        switch (feature) {
-            case DROP_AND_CREATE:
-                try {
-                    template.execute("drop table " + PROPERTIES_TABLE);
-                } catch (Exception ex) {
-                    Exceptions.handle(ex, "X0Y32");
-                }
-                break;
-            default:
-                break;
-        }
 
-        try {
-            template.execute("create table " + PROPERTIES_TABLE + " (id INT GENERATED ALWAYS AS IDENTITY, name VARCHAR(40), genericSize INT, electricSize INT)");
-        } catch (Exception ex) {
-            Exceptions.handle(ex, "X0Y32");
-        }
     }
 
     /*
@@ -82,7 +49,6 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
         properties.setElectricSize(3);
         properties.setId(saveProperties(properties));
     }
-
 
 
     @Override
@@ -113,13 +79,11 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public ParkingLotProperties getPropertiesById(int id) {
-        return template.queryForObject("select * from " + PROPERTIES_TABLE + " where id=?"
-                , new PropertiesRowMapper(), id);
+        return properties;
     }
 
     @Override
     public ParkingLotProperties getPropertiesByName(String name) {
-        seed();
         return properties;
     }
 
