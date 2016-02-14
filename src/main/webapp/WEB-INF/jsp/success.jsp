@@ -13,14 +13,9 @@
 
 </head>
 <body>
+<jsp:include page="header.jsp" />
 
-<h1>Entrance Success</h1>
-
-
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/">Home</a></li>
-				<li><a href="entrance">Entrance</a></li>
-			</ul>
+<h2>Entrance Success</h2>
 
             License Plate ${it.vehicle.licensePlate} of type ${it.vehicle.type} was granted access to the parking lot.
 </p>

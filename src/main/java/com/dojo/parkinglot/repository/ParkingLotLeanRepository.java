@@ -1,6 +1,7 @@
 package com.dojo.parkinglot.repository;
 
 import com.dojo.parkinglot.domain.ParkingLotProperties;
+import com.dojo.parkinglot.domain.car.ElectricCar;
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.tools.Exceptions;
@@ -18,6 +19,7 @@ import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Date;
 
 @Primary
 @Component("parkingLotRepository")
@@ -125,7 +127,16 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     @Override
     public VehicleInterface findByLicensePlate(String licensePlate) {
-        return (licensePlate.equals("FOO") ? new GenericCar(licensePlate) : null);
+        switch (licensePlate) {
+            case "BAR":
+            return null;
+            case "BAZ":
+                return null;
+            case "ELEC":
+                return new ElectricCar(licensePlate + new Date().hashCode());
+            default:
+                return new GenericCar(licensePlate);
+        }
     }
 }
 

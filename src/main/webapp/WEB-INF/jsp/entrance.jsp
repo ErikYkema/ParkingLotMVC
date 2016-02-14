@@ -10,23 +10,18 @@
 <title>Parking Lot Entrance</title>
 </head>
 <body>
-<image src="assets/img/bol_com_logo.png"></a>
-<h1>Parking lot entrance</h1>
-<image src="/assets/img/booth.jpg"></a>
+<jsp:include page="header.jsp" />
+<h2>Parking lot entrance</h2>
+<image src="/assets/img/booth.jpg" width=100></a>
 </p>
-
-
-				<li><a href="/">Home</a></li>
-				<li class="active"><a href="entrance">Entrance</a></li>
-
-						<form:form id="myForm" method="post" action="entrance">
-							<fieldset>
-								<legend>Parking Lot Entrance</legend>
-									<label for="licensePlateInput" >License Plate</label>
-										<input type="text" name="licensePlate"
-										id="licensePlateInput" placeholder="License Plate" />
-									<button>Enter the Parking Lot</button>
-							</fieldset>
-						</form:form>
+<form:form id="myForm" method="post" action="entrance">
+    <fieldset>
+        <legend>Parking Lot Entrance</legend>
+            <label for="licensePlateInput" >License Plate</label>
+                <input type="text" name="licensePlate"
+                id="licensePlateInput" placeholder="License Plate" />
+            <button>Enter the Parking Lot</button>
+    </fieldset>
+</form:form>
 </body>
 </html>

@@ -10,9 +10,7 @@
 
 </head>
 <body>
-<image src="/assets/img/bol_com_logo.png"></a>
-				<li><a href="/parkinglot">Home</a></li>
-				<li><a href="entrance">Entrance</a></li>
+<jsp:include page="header.jsp" />
 
 			<h3 >Parking Entrance request failure</h3>
 				<strong>Oh snap!</strong> Something is wrong. Change and try submitting again.
