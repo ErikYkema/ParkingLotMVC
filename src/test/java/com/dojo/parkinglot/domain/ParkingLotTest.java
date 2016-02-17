@@ -1,6 +1,7 @@
 package com.dojo.parkinglot.domain;
 
 import com.dojo.parkinglot.domain.car.GenericCar;
+import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.repository.ParkingLotLeanRepository;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Before;
@@ -15,7 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.test.util.MatcherAssertionErrors.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
@@ -25,7 +30,7 @@ public class ParkingLotTest {
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
-    ParkingLot parkingLot; // = ParkingLot.getParkingLot();
+    ParkingLotInterface parkingLot; // = ParkingLot.getParkingLot();
 
     @Autowired
     ParkingLotLeanRepository parkingLotRepository;
@@ -59,5 +64,32 @@ public class ParkingLotTest {
             }
             LOG.info(String.format("parked duration: %s", parkingLot.getParkingSpaceUsages().get(car).getParkingDuration()));
         }
+    }
+
+    // integration test
+    @Test
+    public void testTicketGenericCar() throws Exception {
+        String licensePlate = "GENERIC";
+        VehicleInterface car = new GenericCar(licensePlate);
+        assertTrue("cannot get parking space", parkingLot.requestParkingSpace(car));
+        Thread.sleep(1000L); // millis
+        ParkingTicket ticket = parkingLot.releaseParkingSpace(licensePlate);
+        assertThat(ticket.getDuration(), greaterThanOrEqualTo(0.5));
+        assertThat(ticket.getChargingCost(), is(0.0));
+        assertThat(ticket.getParkingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getParkingRate() * 1/60));
+    }
+
+    // integration test
+    @Test
+    public void testTicketElectricCar() throws Exception {
+        String licensePlate = "ELEC1";
+        VehicleInterface car = parkingLotRepository.findByLicensePlate(licensePlate);
+        assertNotNull(car);
+        assertTrue("cannot get parking space", parkingLot.requestParkingSpace(car));
+        Thread.sleep(1000L); // millis
+        ParkingTicket ticket = parkingLot.releaseParkingSpace(licensePlate);
+        assertThat(ticket.getDuration(), greaterThanOrEqualTo(0.5));
+        assertThat(ticket.getChargingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getChargingRate() * 1/60));
+        assertThat(ticket.getParkingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getParkingRate() * 1/60));
     }
 }

@@ -97,6 +97,15 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
             case "ELEC":
                 vehicle = new ElectricCar(licensePlate + new Date().hashCode());
                 break;
+            case "ELEC1":
+                vehicle = new ElectricCar(licensePlate);
+                break;
+            case "ELEC2":
+                vehicle = new ElectricCar(licensePlate);
+                break;
+            case "ELEC3":
+                vehicle = new ElectricCar(licensePlate);
+                break;
             default:
                 vehicle = new GenericCar(licensePlate);
         }

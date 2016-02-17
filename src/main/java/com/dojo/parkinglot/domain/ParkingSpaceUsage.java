@@ -18,11 +18,6 @@ public class ParkingSpaceUsage {
 
     private Date startUsageDateTime;
 
-    public ParkingSpaceUsage(VehicleInterface vehicle) {
-        this.parkingSpace = ParkingSpaceFactory.createParkingSpace(vehicle.getType());
-        this.startUsageDateTime = new Date();
-    }
-
     public ParkingSpaceInterface getParkingSpace() {
         return parkingSpace;
     }
@@ -31,7 +26,14 @@ public class ParkingSpaceUsage {
         return startUsageDateTime;
     }
 
-    public Long getParkingDuration() {
-        return new Date().getTime() - startUsageDateTime.getTime();
+    public ParkingSpaceUsage(VehicleInterface vehicle) {
+        this.parkingSpace = ParkingSpaceFactory.createParkingSpace(vehicle.getType());
+        this.startUsageDateTime = new Date();
+    }
+
+    public double getParkingDuration() {
+        LOG.debug(String.format("startUsage: %s", startUsageDateTime.getTime()));
+        LOG.debug(String.format("startUsage: %s", new Date().getTime() - startUsageDateTime.getTime()));
+        return (new Date().getTime() - startUsageDateTime.getTime())/1000.0;
     }
 }

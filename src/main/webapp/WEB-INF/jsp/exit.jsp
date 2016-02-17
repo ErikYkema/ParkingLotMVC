@@ -11,19 +11,17 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<h2>Parking lot entrance</h2>
-<image src="/assets/img/booth.jpg" width=150></a>
+<h2>Parking Lot Exit - Payment Time!</h2>
+<image src="/assets/img/exit.jpg" width=150></a>
 </p>
 
-TODO: show free spaces (are already in the model for this page).
-
-<form:form id="myForm" method="post" action="entrance">
+<form:form id="myForm" method="post" action="exit">
     <fieldset>
-        <legend>Parking Lot Entrance</legend>
+        <legend>Parking Lot Exit</legend>
             <label for="licensePlateInput" >License Plate</label>
                 <input type="text" name="licensePlate"
                 id="licensePlateInput" placeholder="License Plate" />
-            <button>Enter the Parking Lot</button>
+            <button>Exit the Parking Lot</button>
     </fieldset>
 </form:form>
 </body>

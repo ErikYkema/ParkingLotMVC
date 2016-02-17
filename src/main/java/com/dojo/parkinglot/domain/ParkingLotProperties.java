@@ -3,9 +3,18 @@ package com.dojo.parkinglot.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="properties")
 @Component("properties")
 public class ParkingLotProperties {
     private int genericSize;
+    private int electricSize;
+    private int id;
+    private String name;
+    private double parkingRate;
+    private double chargingRate;
+
 
     public ParkingLotProperties() {
     }
@@ -42,9 +51,21 @@ public class ParkingLotProperties {
         this.name = name;
     }
 
-    private int electricSize;
-    private int id;
-    private String name;
+    public double getParkingRate() {
+        return parkingRate;
+    }
+
+    public void setParkingRate(double parkingRate) {
+        this.parkingRate = parkingRate;
+    }
+
+    public double getChargingRate() {
+        return chargingRate;
+    }
+
+    public void setChargingRate(double chargingRate) {
+        this.chargingRate = chargingRate;
+    }
 
     @Override
     public String toString() {

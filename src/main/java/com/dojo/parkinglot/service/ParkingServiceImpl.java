@@ -1,6 +1,7 @@
 package com.dojo.parkinglot.service;
 
-import com.dojo.parkinglot.domain.ParkingLot;
+import com.dojo.parkinglot.domain.ParkingLotInterface;
+import com.dojo.parkinglot.domain.ParkingTicket;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.repository.ParkingLotRepositoryInterface;
 import org.slf4j.Logger;
@@ -17,30 +18,37 @@ public class ParkingServiceImpl implements ParkingServiceInterface {
 			LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private ParkingLotRepositoryInterface repository;
-	ParkingLot parkingLot;
+	ParkingLotInterface parkingLot;
 
 	@Autowired
-	public ParkingServiceImpl(ParkingLot parkingLot, ParkingLotRepositoryInterface repository) {
+	public ParkingServiceImpl(ParkingLotInterface parkingLot, ParkingLotRepositoryInterface repository) {
 		this.parkingLot = parkingLot;
 		this.repository = repository;
 		repository.seed();
 		parkingLot.init(); // TODO why doesn't it work from the autowired parlingLot constructor?
 	}
 
-	@Override
-	public ParkingLot getParkingLot() {
+	public ParkingLotInterface getParkingLot() {
 		return parkingLot;
 	}
 
-	public VehicleInterface findByLicensePlate(String licensePlate) {
+	public VehicleInterface findByLicensePlateFromRepository(String licensePlate) {
 		VehicleInterface vehicle = repository.findByLicensePlate(licensePlate);
 		LOG.debug(String.format("VehicleInterface: %s", vehicle == null ? "" : vehicle));
 		return vehicle;
 	}
 
+	/*
+	checks for, and if available, claims a space in the parking lot and stars a usage record.
+	 */
 	public boolean getFreeSpace(VehicleInterface vehicle) {
 		boolean space = parkingLot.requestParkingSpace(vehicle);
 		LOG.debug(space ? "found" : "not found");
 		return space;
+	}
+
+	public ParkingTicket releaseSpace(String licensePlate) {
+		ParkingTicket ticket = parkingLot.releaseParkingSpace(licensePlate);
+		return ticket;
 	}
 }

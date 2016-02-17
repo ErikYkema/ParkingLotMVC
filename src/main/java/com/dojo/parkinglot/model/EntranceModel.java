@@ -1,4 +1,4 @@
-package com.dojo.parkinglot.model.old;
+package com.dojo.parkinglot.model;
 
 import com.dojo.parkinglot.domain.FreeSpaceCounter;
 

@@ -1,7 +1,6 @@
 package com.dojo.parkinglot.client;
 
 import com.dojo.parkinglot.model.StudentInterface;
-import com.dojo.parkinglot.repository.StudentRepository;
 import com.dojo.parkinglot.service.StudentService;
 import com.dojo.parkinglot.service.StudentServiceImpl;
 import org.jmock.Expectations;

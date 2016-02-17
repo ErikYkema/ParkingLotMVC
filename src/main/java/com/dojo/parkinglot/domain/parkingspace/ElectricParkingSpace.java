@@ -13,7 +13,7 @@ public class ElectricParkingSpace extends RegularParkingSpace {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.GENERIC;
+    ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.ELECTRIC;
 
     public ElectricParkingSpace() {
     }

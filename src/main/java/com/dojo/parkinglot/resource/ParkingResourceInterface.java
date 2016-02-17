@@ -13,4 +13,10 @@ public interface ParkingResourceInterface {
 	// GET
 	public Response admin();
 
+	// GET
+	public Response exit();
+
+	// POST
+	public Response exit(String licensePlate);
+
 }

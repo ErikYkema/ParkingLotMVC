@@ -19,6 +19,10 @@
 <image src="/assets/img/maintenance.jpg"></a>
 </p>
 
+
+<h2>Plain REST API</h2>
+<li><a href="/webapi/restResource/properties">GET parking lot properties</a></li>
+
 <h2>Size of parking lot</h2>
 <image src="/assets/img/dimensions.jpg" width=200></a>
 </p>

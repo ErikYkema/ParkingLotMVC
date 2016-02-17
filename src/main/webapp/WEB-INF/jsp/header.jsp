@@ -3,5 +3,6 @@
 </p>
 <li><a href="/">Home</a></li>
 <li><a href="/webapi/parkingResource/entrance">Entrance</a></li>
+<li><a href="/webapi/parkingResource/exit">Exit</a></li>
 <li><a href="/webapi/parkingResource/admin">Admin</a></li>
 <hr>

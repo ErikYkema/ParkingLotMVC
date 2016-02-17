@@ -14,8 +14,8 @@ import java.lang.invoke.MethodHandles;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:testApplicationContext.xml")
@@ -28,14 +28,14 @@ public class ParkingSpaceUsageTest {
 
     @Test
     public void assertThatNewParkingSpaceCountsDuration() {
-        Long duration = 100L;
+        double duration = 100.0;
         ParkingSpaceUsage parkingSpaceUsage = new ParkingSpaceUsage(car);
         try {
-            Thread.sleep(duration);
+            Thread.sleep((long) duration);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
-        assertTrue(parkingSpaceUsage.getParkingDuration()>=duration);
         assertThat(parkingSpaceUsage.getParkingSpace(), is(instanceOf(RegularParkingSpace.class)));
+        assertThat(parkingSpaceUsage.getParkingDuration()*1000, greaterThanOrEqualTo(duration));
     }
 }
