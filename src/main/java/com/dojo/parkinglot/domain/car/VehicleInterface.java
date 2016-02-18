@@ -10,4 +10,8 @@ public interface VehicleInterface {
 
     public void setLicensePlate(String licensePlate);
 
+    public void setId (int id);
+
+    public int getId();
+
 }

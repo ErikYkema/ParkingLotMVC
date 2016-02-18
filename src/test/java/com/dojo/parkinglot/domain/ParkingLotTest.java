@@ -2,7 +2,9 @@ package com.dojo.parkinglot.domain;
 
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
+import com.dojo.parkinglot.repository.ParkingLotJdbcRepository;
 import com.dojo.parkinglot.repository.ParkingLotLeanRepository;
+import com.dojo.parkinglot.repository.ParkingLotRepositoryInterface;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +12,12 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
 
@@ -30,19 +35,29 @@ public class ParkingLotTest {
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
-    ParkingLotInterface parkingLot; // = ParkingLot.getParkingLot();
+    ParkingLotInterface parkingLot;
 
     @Autowired
-    ParkingLotLeanRepository parkingLotRepository;
+    ParkingLotProperties properties;
+
+    private ParkingLotRepositoryInterface parkingLotRepository;
+    private DataSource dataSource;
 
     @Autowired
     GenericCar car;
 
     @Before
     public void setUp() {
-        parkingLotRepository.setup(null);
+        parkingLotRepository = new ParkingLotJdbcRepository();
+        // you should switch repository when primary component is switched in the application
+        // parkingLotRepository = new ParkingLotLeanRepository();
+        parkingLotRepository.setProperties(properties);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("testApplicationContext.xml");
+        dataSource = (DataSource)applicationContext.getBean("dataSource");
+        parkingLotRepository.setDataSource(dataSource);
+        parkingLotRepository.setup();
         parkingLotRepository.seed();
-        //parkingLot.init();
+
     }
 
     // integration test

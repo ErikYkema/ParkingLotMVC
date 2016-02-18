@@ -9,9 +9,12 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.util.UUID;
 
@@ -23,11 +26,19 @@ import static org.junit.Assert.assertThat;
 public class ParkingLotLeanRepositoryTest {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-//todo JDBC test
-    @Autowired
+
     ParkingLotLeanRepository repository;
+
     @Autowired
     ParkingLotProperties properties;
+
+    @Before
+    public void setup () {
+        repository = new ParkingLotLeanRepository();
+        repository.setProperties(properties);
+        repository.setup();
+        repository.seed();
+    }
 
     @Test
     public void testSavePropertiesGetById() throws Exception {

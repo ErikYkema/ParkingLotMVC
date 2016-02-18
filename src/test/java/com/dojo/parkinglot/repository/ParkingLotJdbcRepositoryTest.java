@@ -37,7 +37,7 @@ public class ParkingLotJdbcRepositoryTest {
         datasource = (DataSource)applicationContext.getBean("dataSource");
         repository.setProperties(properties);
         repository.setDataSource(datasource);
-        repository.setup(ParkingLotRepositoryInterface.Feature.DROP_AND_CREATE);
+        repository.setup();
         repository.seed();
     }
 

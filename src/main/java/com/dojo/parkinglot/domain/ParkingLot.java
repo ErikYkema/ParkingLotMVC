@@ -57,6 +57,7 @@ public class ParkingLot implements ParkingLotInterface {
 
     @Override
     public void init() {
+        repository.setup();
         parkingLotProperties = repository.getPropertiesByName(PARKING_LOT_NAME);
         parkingLotProperties.setChargingRate(9.90);
         parkingLotProperties.setParkingRate(0.50);

@@ -15,10 +15,6 @@ public class ParkingSpaceFactory {
             return new RegularParkingSpace();
         case ELECTRIC:
             return new ElectricParkingSpace();
-//            case LARGE: TODO extend?
-//                return new PSLarge(location);
-//            case VISITOR:
-//                return new PSVisitor(lcoation);
         default:
             throw new IllegalArgumentException();
         }

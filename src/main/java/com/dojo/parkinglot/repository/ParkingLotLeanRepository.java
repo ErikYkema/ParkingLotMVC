@@ -11,14 +11,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 
-@Primary
-@Component("parkingLotRepository")
+@Component
 public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -29,11 +29,20 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     public static final String PARKING_LOT_NAME = "DanielDogShed";
 
+    private ParkingLotProperties properties;
+
     @Autowired
-    ParkingLotProperties properties;
+    public void setProperties(ParkingLotProperties properties) {
+        this.properties = properties;
+    }
 
     @Override
-    public void setup(Feature feature) {
+    public void setDataSource(DataSource dataSource) {
+        // no datasource needed for lean setup
+    }
+
+    @Override
+    public void setup() {
         // nothing for lean setup?
     }
 
@@ -41,7 +50,6 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
     clears out the current data and reloads the application setup
      */
     public void seed() {
-        //template.execute("delete from " + PROPERTIES_TABLE);
 
         properties.setName(PARKING_LOT_NAME);
         properties.setGenericSize(11);
@@ -91,11 +99,8 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
         VehicleInterface vehicle = null;
         switch (licensePlate) {
             case "BAR":
-            break;
-            case "BAZ":
                 break;
-            case "ELEC":
-                vehicle = new ElectricCar(licensePlate + new Date().hashCode());
+            case "BAZ":
                 break;
             case "ELEC1":
                 vehicle = new ElectricCar(licensePlate);
@@ -106,8 +111,11 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
             case "ELEC3":
                 vehicle = new ElectricCar(licensePlate);
                 break;
+            case "ELEC4":
+                vehicle = new ElectricCar(licensePlate);
+                break;
             default:
-                vehicle = new GenericCar(licensePlate);
+                vehicle = new GenericCar( );
         }
         LOG.debug("Vehicle found: " + (vehicle == null ? "null" : vehicle.getType()));
         return vehicle;

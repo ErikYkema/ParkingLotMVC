@@ -14,12 +14,23 @@ public class ElectricCar implements VehicleInterface {
 
     private final ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.ELECTRIC;
     private String licensePlate;
+    private int id;
 
     public ElectricCar(String licensePlate) {
         this.licensePlate = licensePlate;
     }
     public ElectricCar() {
 
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

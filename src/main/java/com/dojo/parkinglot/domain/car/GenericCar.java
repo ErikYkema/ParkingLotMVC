@@ -14,8 +14,18 @@ public class GenericCar implements VehicleInterface {
 
     private final ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.GENERIC;
     private String licensePlate;
+    private int Id;
 
     public GenericCar() {
+    }
+    @Override
+    public int getId() {
+        return Id;
+    }
+
+    @Override
+    public void setId(int id) {
+        Id = id;
     }
 
     public GenericCar(String licensePlate) {
