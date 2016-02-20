@@ -11,7 +11,9 @@ import java.lang.invoke.MethodHandles;
 public class RegularParkingSpace implements ParkingSpaceInterface {
     private final static Logger LOG =
             LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
     ParkingSpaceTypeEnum type = ParkingSpaceTypeEnum.GENERIC;
+
     @Override
     public ParkingSpaceTypeEnum getType() {
         return type;

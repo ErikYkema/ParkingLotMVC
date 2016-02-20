@@ -1,5 +1,9 @@
 package com.dojo.parkinglot.repository;
 
+import com.dojo.parkinglot.dao.PropertiesDao;
+import com.dojo.parkinglot.dao.PropertiesDaoImpl;
+import com.dojo.parkinglot.dao.VehicleDao;
+import com.dojo.parkinglot.dao.VehicleDaoImpl;
 import com.dojo.parkinglot.domain.ParkingLotProperties;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,17 +32,24 @@ public class ParkingLotJdbcRepositoryTest {
     private ParkingLotJdbcRepository repository;
     private ParkingLotProperties properties;
     private DataSource datasource;
+    private PropertiesDao propertiesDao;
+    private VehicleDao vehicleDao;
 
     @Before
     public void setup () {
         properties = new ParkingLotProperties();
         repository = new ParkingLotJdbcRepository();
+        vehicleDao = new VehicleDaoImpl();
+        propertiesDao = new PropertiesDaoImpl();
+
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("testApplicationContext.xml");
         datasource = (DataSource)applicationContext.getBean("dataSource");
-        repository.setProperties(properties);
-        repository.setDataSource(datasource);
+        vehicleDao.setDataSource(datasource);
+        propertiesDao.setDataSource(datasource);
+
+        repository.setPropertiesDao(propertiesDao);
+        repository.setVehicleDao(vehicleDao);
         repository.setup();
-        repository.seed();
     }
 
     @Test
@@ -64,13 +75,8 @@ public class ParkingLotJdbcRepositoryTest {
         properties.setId(repository.saveProperties(properties));
         ParkingLotProperties propertiesByName = repository.getPropertiesByName(name);
         LOG.debug("fetched: "+ propertiesByName.toString());
-        // TODO implement equals/hashcode
         assertThat(propertiesByName.getId(), is(properties.getId()));
         assertThat(propertiesByName.getName(), is(properties.getName()));
-    }
-
-    @Test
-    public void testGetAllProperties() throws Exception {
     }
 
 }

@@ -16,8 +16,8 @@ public class GenericCar implements VehicleInterface {
     private String licensePlate;
     private int Id;
 
-    public GenericCar() {
-    }
+    public GenericCar() { }
+
     @Override
     public int getId() {
         return Id;

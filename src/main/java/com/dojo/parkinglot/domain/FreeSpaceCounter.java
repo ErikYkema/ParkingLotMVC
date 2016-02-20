@@ -36,7 +36,6 @@ public class FreeSpaceCounter {
         return freeSpace.get(vehicle.getClass());
     }
 
-    // TODO raise exception and not return boolean?
     public boolean useSpace(VehicleInterface vehicle) {
         LOG.debug(String.format("useSpace() called for %s", vehicle.getClass().toString()));
         if (hasSpace(vehicle)) {
@@ -59,5 +58,7 @@ public class FreeSpaceCounter {
         return ReflectionToStringBuilder.toString(this);
     }
 
-    public String getDescription() {return toString();}
+    public String getDescription() {
+        return toString();
+    }
 }

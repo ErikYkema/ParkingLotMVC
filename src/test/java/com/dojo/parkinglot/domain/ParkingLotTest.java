@@ -1,5 +1,9 @@
 package com.dojo.parkinglot.domain;
 
+import com.dojo.parkinglot.dao.PropertiesDao;
+import com.dojo.parkinglot.dao.PropertiesDaoImpl;
+import com.dojo.parkinglot.dao.VehicleDao;
+import com.dojo.parkinglot.dao.VehicleDaoImpl;
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.repository.ParkingLotJdbcRepository;
@@ -37,26 +41,33 @@ public class ParkingLotTest {
     @Autowired
     ParkingLotInterface parkingLot;
 
-    @Autowired
-    ParkingLotProperties properties;
-
-    private ParkingLotRepositoryInterface parkingLotRepository;
-    private DataSource dataSource;
+    private ParkingLotLeanRepository parkingLotLeanRepository;
+    private ParkingLotJdbcRepository parkingLotJdbcRepository;
+    private DataSource datasource;
 
     @Autowired
     GenericCar car;
+    private VehicleDao vehicleDao;
+    private PropertiesDao propertiesDao;
+
 
     @Before
     public void setUp() {
-        parkingLotRepository = new ParkingLotJdbcRepository();
-        // you should switch repository when primary component is switched in the application
-        // parkingLotRepository = new ParkingLotLeanRepository();
-        parkingLotRepository.setProperties(properties);
+
+        // Lean
+        parkingLotLeanRepository = new ParkingLotLeanRepository();
+        parkingLotLeanRepository.setup();
+
+        //Derby
+        parkingLotJdbcRepository = new ParkingLotJdbcRepository();;
+        vehicleDao = new VehicleDaoImpl();
+        propertiesDao = new PropertiesDaoImpl();
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("testApplicationContext.xml");
-        dataSource = (DataSource)applicationContext.getBean("dataSource");
-        parkingLotRepository.setDataSource(dataSource);
-        parkingLotRepository.setup();
-        parkingLotRepository.seed();
+        datasource = (DataSource)applicationContext.getBean("dataSource");
+        vehicleDao.setDataSource(datasource);
+        propertiesDao.setDataSource(datasource);
+        parkingLotJdbcRepository.setPropertiesDao(propertiesDao);
+        parkingLotJdbcRepository.setVehicleDao(vehicleDao);
 
     }
 
@@ -91,14 +102,27 @@ public class ParkingLotTest {
         ParkingTicket ticket = parkingLot.releaseParkingSpace(licensePlate);
         assertThat(ticket.getDuration(), greaterThanOrEqualTo(0.5));
         assertThat(ticket.getChargingCost(), is(0.0));
-        assertThat(ticket.getParkingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getParkingRate() * 1/60));
+        assertThat(ticket.getParkingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getParkingRate() * 1 / 60));
     }
 
     // integration test
     @Test
-    public void testTicketElectricCar() throws Exception {
+    public void testTicketElectricCarLean() throws Exception {
         String licensePlate = "ELEC1";
-        VehicleInterface car = parkingLotRepository.findByLicensePlate(licensePlate);
+        VehicleInterface car = parkingLotLeanRepository.findByLicensePlate(licensePlate);
+        assertNotNull(car);
+        assertTrue("cannot get parking space", parkingLot.requestParkingSpace(car));
+        Thread.sleep(1000L); // millis
+        ParkingTicket ticket = parkingLot.releaseParkingSpace(licensePlate);
+        assertThat(ticket.getDuration(), greaterThanOrEqualTo(0.5));
+        assertThat(ticket.getChargingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getChargingRate() * 1 / 60));
+        assertThat(ticket.getParkingCost(), greaterThanOrEqualTo(parkingLot.getProperties().getParkingRate() * 1/60));
+    }
+
+    @Test
+    public void testTicketElectricCarDerby() throws Exception {
+        String licensePlate = "ELEC1";
+        VehicleInterface car = parkingLotJdbcRepository.findByLicensePlate(licensePlate);
         assertNotNull(car);
         assertTrue("cannot get parking space", parkingLot.requestParkingSpace(car));
         Thread.sleep(1000L); // millis

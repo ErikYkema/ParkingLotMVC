@@ -1,6 +1,5 @@
 package com.dojo.parkinglot.domain;
 
-
 import com.dojo.parkinglot.domain.car.ElectricCar;
 import com.dojo.parkinglot.domain.car.GenericCar;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
@@ -70,7 +69,6 @@ public class ParkingLot implements ParkingLotInterface {
         LOG.debug("getFreeSpaceCounter: " + freeSpaceCounter.getDescription());
         return freeSpaceCounter;
     }
-
 
     @Override
     public boolean requestParkingSpace(VehicleInterface vehicle) {

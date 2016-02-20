@@ -35,9 +35,7 @@ public class ParkingLotLeanRepositoryTest {
     @Before
     public void setup () {
         repository = new ParkingLotLeanRepository();
-        repository.setProperties(properties);
         repository.setup();
-        repository.seed();
     }
 
     @Test
@@ -63,7 +61,6 @@ public class ParkingLotLeanRepositoryTest {
         properties.setId(repository.saveProperties(properties));
         ParkingLotProperties propertiesByName = repository.getPropertiesByName(name);
         LOG.debug("fetched: "+ propertiesByName.toString());
-        // TODO implement equals/hashcode
         assertThat(propertiesByName.getId(), is(properties.getId()));
         assertThat(propertiesByName.getName(), is(properties.getName()));
     }

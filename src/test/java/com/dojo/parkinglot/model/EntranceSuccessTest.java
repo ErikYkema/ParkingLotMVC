@@ -21,5 +21,5 @@ public class EntranceSuccessTest {
    public void entranceSuccess() {
       assertTrue(true);
    }
-    //todo implement tests
+
 }

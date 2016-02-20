@@ -17,16 +17,11 @@ public class ParkingServiceImpl implements ParkingServiceInterface {
 	private final static Logger LOG =
 			LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+	@Autowired
 	private ParkingLotRepositoryInterface repository;
-	ParkingLotInterface parkingLot;
 
 	@Autowired
-	public ParkingServiceImpl(ParkingLotInterface parkingLot, ParkingLotRepositoryInterface repository) {
-		this.parkingLot = parkingLot;
-		this.repository = repository;
-		repository.seed();
-		parkingLot.init(); // TODO why doesn't it work from the autowired parlingLot constructor?
-	}
+	ParkingLotInterface parkingLot;
 
 	public ParkingLotInterface getParkingLot() {
 		return parkingLot;
@@ -34,7 +29,7 @@ public class ParkingServiceImpl implements ParkingServiceInterface {
 
 	public VehicleInterface findByLicensePlateFromRepository(String licensePlate) {
 		VehicleInterface vehicle = repository.findByLicensePlate(licensePlate);
-		LOG.debug(String.format("VehicleInterface: %s", vehicle == null ? "" : vehicle));
+		LOG.debug(String.format("VehicleInterface: %s", vehicle == null ? "Geen vehicle gevonden" : vehicle));
 		return vehicle;
 	}
 

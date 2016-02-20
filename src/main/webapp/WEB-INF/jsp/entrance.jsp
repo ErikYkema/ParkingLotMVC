@@ -15,8 +15,6 @@
 <image src="/assets/img/booth.jpg" width=150></a>
 </p>
 
-TODO: show free spaces (are already in the model for this page).
-
 <form:form id="myForm" method="post" action="entrance">
     <fieldset>
         <legend>Parking Lot Entrance</legend>

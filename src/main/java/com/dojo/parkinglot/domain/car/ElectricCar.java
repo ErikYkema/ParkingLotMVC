@@ -19,9 +19,7 @@ public class ElectricCar implements VehicleInterface {
     public ElectricCar(String licensePlate) {
         this.licensePlate = licensePlate;
     }
-    public ElectricCar() {
-
-    }
+    public ElectricCar() { }
 
     @Override
     public int getId() {

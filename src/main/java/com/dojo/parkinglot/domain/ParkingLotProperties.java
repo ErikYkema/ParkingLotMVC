@@ -15,7 +15,6 @@ public class ParkingLotProperties {
     private double parkingRate;
     private double chargingRate;
 
-
     public ParkingLotProperties() {
     }
 

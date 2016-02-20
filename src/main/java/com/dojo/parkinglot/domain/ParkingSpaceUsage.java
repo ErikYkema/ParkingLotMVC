@@ -1,6 +1,5 @@
 package com.dojo.parkinglot.domain;
 
-
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 import com.dojo.parkinglot.domain.parkingspace.ParkingSpaceInterface;
 import com.dojo.parkinglot.domain.parkingspace.ParkingSpaceFactory;
