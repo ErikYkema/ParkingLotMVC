@@ -66,7 +66,7 @@ public class ParkingLot implements ParkingLotInterface {
 
     @Override
     public FreeSpaceCounter getFreeSpaceCounter() {
-        LOG.debug("getFreeSpaceCounter: " + freeSpaceCounter.getDescription());
+        LOG.debug("getFreeSpaceCounter: " + freeSpaceCounter);
         return freeSpaceCounter;
     }
 

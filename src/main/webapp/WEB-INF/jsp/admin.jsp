@@ -23,13 +23,25 @@
 <h2>Plain REST API</h2>
 <li><a href="/webapi/restResource/properties">GET parking lot properties</a></li>
 
-<h2>Size of parking lot</h2>
+<h2>Size of parking lot ${it.parkingLot.properties.name}</h2>
 <image src="/assets/img/dimensions.jpg" width=200></a>
 </p>
-${it.parkingLot.freeSpaceCounter.description}
+<table cellpadding="15" border="1" style="background-color: #ffffcc;">
+<tr>
+<th>Type</th><th>Capacity</th><th>Used space</th><th>Free space</th>
+</tr>
+<c:forEach items="${it.parkingLot.freeSpaceCounter.freeSpace}" var="entry">
+    <tr>
+    <td>${entry.key.simpleName}</td>
+    <td>${it.parkingLot.freeSpaceCounter.maxFreeSpace[entry.key]}</td>
+    <td>${it.parkingLot.freeSpaceCounter.maxFreeSpace[entry.key]-entry.value}</td>
+    <td>${entry.value}</td>
+    </tr>
+</c:forEach>
+<table>
 </p>
 
-<h2>Current state of the parking lot:</h2>
+<h2>Parked cars:</h2>
 <image src="/assets/img/listOfCars.jpg" width=150></a>
 </p>
 <table cellpadding="15" border="1" style="background-color: #ffffcc;">
@@ -46,6 +58,7 @@ ${it.parkingLot.freeSpaceCounter.description}
     </tr>
 </c:forEach>
 <table>
+
 </p>
 <image src="/assets/img/maintenance-2.jpg" width=250></a>
 </p>

@@ -58,7 +58,11 @@ public class FreeSpaceCounter {
         return ReflectionToStringBuilder.toString(this);
     }
 
-    public String getDescription() {
-        return toString();
+    public Map<Class, Integer> getFreeSpace() {
+        return freeSpace;
+    }
+
+    public Map<Class, Integer> getMaxFreeSpace() {
+        return maxFreeSpace;
     }
 }
