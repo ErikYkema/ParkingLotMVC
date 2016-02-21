@@ -6,12 +6,12 @@ public interface VehicleInterface {
 
     ParkingSpaceTypeEnum getType();
 
-    public String getLicensePlate();
+    String getLicensePlate();
 
-    public void setLicensePlate(String licensePlate);
+    void setLicensePlate(String licensePlate);
 
-    public void setId (int id);
+    void setId (int id);
 
-    public int getId();
+    int getId();
 
 }

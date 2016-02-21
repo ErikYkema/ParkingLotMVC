@@ -3,6 +3,7 @@ package com.dojo.parkinglot.dao;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 public interface VehicleDao {
 
@@ -11,4 +12,5 @@ public interface VehicleDao {
     VehicleInterface findByLicensePlate(String licensePlate);
     Integer saveVehicle(VehicleInterface vehicle);
     void deleteVehicles();
+    List<VehicleInterface> getVehicles();
 }

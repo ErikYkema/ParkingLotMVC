@@ -1,7 +1,7 @@
 package com.dojo.parkinglot.resource;
 
-import com.dojo.parkinglot.domain.ParkingLotInterface;
 import com.dojo.parkinglot.domain.ParkingLotProperties;
+import com.dojo.parkinglot.service.ParkingServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
@@ -15,14 +15,13 @@ import javax.ws.rs.Produces;
 public class RestResource {
 
     @Autowired
-    ParkingLotInterface parkingLot;
+    ParkingServiceInterface parkingService;
 
     @GET
     @Path("properties")
     @Produces("application/xml")
     public ParkingLotProperties getProperties() {
-        return parkingLot.getProperties();
+        return parkingService.getParkingLot().getProperties();
     }
-
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -33,12 +34,10 @@ public class VehicleDaoImpl implements VehicleDao {
                 .usingGeneratedKeyColumns("id");
     }
 
-    @Override
     public void setup () {
          createTable("create table " + VEHICLES_TABLE + " (id INT GENERATED ALWAYS AS IDENTITY, licensePlate VARCHAR(40), type VARCHAR(15))");
     }
 
-    @Override
     public VehicleInterface findByLicensePlate(String licensePlate) {
         VehicleInterface car;
         if (template == null) {
@@ -54,7 +53,6 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
 
-    @Override
     public Integer saveVehicle(VehicleInterface vehicle) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("licensePlate", vehicle.getLicensePlate());
@@ -65,7 +63,6 @@ public class VehicleDaoImpl implements VehicleDao {
         return key.intValue();
     }
 
-    @Override
     public void deleteVehicles() {
         template.execute("delete from " + VEHICLES_TABLE);
     }
@@ -78,4 +75,22 @@ public class VehicleDaoImpl implements VehicleDao {
             Exceptions.handle(ex, "X0Y32");
         }
     }
+
+    public List<VehicleInterface> getVehicles() {
+        List<VehicleInterface> vehicles;
+        if (template == null) {
+            throw new RuntimeException("template is null!");
+        }
+        try {
+            vehicles = template.query("select id, licensePlate, type from " + VEHICLES_TABLE
+                    , new VehicleRowMapper());
+        }
+        catch (Exception e) {
+            return null;
+        }
+
+        LOG.debug(String.format("Size of list of vehicles from repository: %s", vehicles.size()));
+        return vehicles;
+    }
+
 }

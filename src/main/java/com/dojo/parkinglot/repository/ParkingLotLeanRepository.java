@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.invoke.MethodHandles;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
@@ -23,7 +25,6 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
 
     private ParkingLotProperties properties;
 
-    @Override
     public void setup() {
         properties = new ParkingLotProperties();
         properties.setName(PARKING_LOT_NAME);
@@ -32,23 +33,19 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
         properties.setId(saveProperties(properties));
     }
 
-    @Override
     public Integer saveProperties(ParkingLotProperties properties) {
         this.properties = properties;
         return 1;
     }
 
-    @Override
     public ParkingLotProperties getPropertiesById(int id) {
         return properties;
     }
 
-    @Override
     public ParkingLotProperties getPropertiesByName(String name) {
         return properties;
     }
 
-    @Override
     public VehicleInterface findByLicensePlate(String licensePlate) {
         VehicleInterface vehicle = null;
         switch (licensePlate) {
@@ -73,6 +70,11 @@ public class ParkingLotLeanRepository implements ParkingLotRepositoryInterface {
         }
         LOG.debug("Vehicle found: " + (vehicle == null ? "null" : vehicle.getType()));
         return vehicle;
+    }
+
+    public List<VehicleInterface> getVehicles() {
+        /* not filled as not relevant to test and is only shown at admin page. */
+        return Collections.emptyList();
     }
 
 }

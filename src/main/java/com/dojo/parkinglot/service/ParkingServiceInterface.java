@@ -4,6 +4,8 @@ import com.dojo.parkinglot.domain.ParkingLotInterface;
 import com.dojo.parkinglot.domain.ParkingTicket;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 
+import java.util.List;
+
 /*
 The services wraps all access to the domain and logic, for access by the resource/controller.
  */
@@ -14,4 +16,5 @@ public interface ParkingServiceInterface {
 	boolean getFreeSpace(VehicleInterface vehicle);
 	ParkingTicket releaseSpace(String licensePlate);
 	ParkingLotInterface getParkingLot();
+	List<VehicleInterface> getVehicles();
 }

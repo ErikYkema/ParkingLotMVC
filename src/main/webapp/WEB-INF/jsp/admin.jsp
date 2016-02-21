@@ -22,6 +22,8 @@
 
 <h2>Plain REST API</h2>
 <li><a href="/webapi/restResource/properties">GET parking lot properties</a></li>
+<li><a href="/webapi/restResource/vehicles">GET known vehicles</a></li>
+
 
 <h2>Size of parking lot ${it.parkingLot.properties.name}</h2>
 <image src="/assets/img/dimensions.jpg" width=200></a>

@@ -26,7 +26,7 @@ public class VehicleRowMapper implements RowMapper<VehicleInterface> {
         }
         else {
             throw new RuntimeException("unsupported vehicle type");
-        };
+        }
         LOG.debug(String.format("Found vehicle Id: %s", resultSet.getInt("id")));
         vehicle.setId(resultSet.getInt("id"));
         vehicle.setLicensePlate(resultSet.getString("licensePlate"));

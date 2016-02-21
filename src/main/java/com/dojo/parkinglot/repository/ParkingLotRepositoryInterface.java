@@ -4,6 +4,8 @@ import com.dojo.parkinglot.domain.ParkingLotProperties;
 import com.dojo.parkinglot.domain.car.VehicleInterface;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface ParkingLotRepositoryInterface {
 
@@ -12,5 +14,6 @@ public interface ParkingLotRepositoryInterface {
     ParkingLotProperties getPropertiesById(int Id);
     Integer saveProperties(ParkingLotProperties properties);
     VehicleInterface findByLicensePlate(String licensePlate);
+    List<VehicleInterface> getVehicles();
 
 }

@@ -18,12 +18,10 @@ public class GenericCar implements VehicleInterface {
 
     public GenericCar() { }
 
-    @Override
     public int getId() {
         return Id;
     }
 
-    @Override
     public void setId(int id) {
         Id = id;
     }
@@ -32,17 +30,14 @@ public class GenericCar implements VehicleInterface {
         this.licensePlate = licensePlate;
     }
 
-    @Override
     public ParkingSpaceTypeEnum getType() {
         return type;
     }
 
-    @Override
     public String getLicensePlate() {
         return licensePlate;
     }
 
-    @Override
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @Primary
 @Component
@@ -39,7 +40,6 @@ public class ParkingLotJdbcRepository implements ParkingLotRepositoryInterface {
         this.vehicleDao = vehicleDao;
     }
 
-    @Override
     public void setup() {
         LOG.debug("setup JDBC environment...");
         propertiesDao.setup();
@@ -57,26 +57,39 @@ public class ParkingLotJdbcRepository implements ParkingLotRepositoryInterface {
         vehicleDao.saveVehicle(new ElectricCar("ELEC3"));
         vehicleDao.saveVehicle(new ElectricCar("ELEC4"));
         vehicleDao.saveVehicle(new GenericCar("GENERIC"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC1"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC2"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC3"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC4"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC5"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC6"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC7"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC8"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC9"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC10"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC11"));
+        vehicleDao.saveVehicle(new GenericCar("GENERIC12"));
+
     }
 
-    @Override
     public ParkingLotProperties getPropertiesByName(String name) {
         return propertiesDao.getPropertiesByName(name);
     }
 
-    @Override
     public ParkingLotProperties getPropertiesById(int id) {
         return propertiesDao.getPropertiesById(id);
     }
 
-    @Override
     public Integer saveProperties(ParkingLotProperties properties) {
         return propertiesDao.saveProperties(properties);
     }
 
-    @Override
     public VehicleInterface findByLicensePlate(String licensePlate) {
         return vehicleDao.findByLicensePlate(licensePlate);
+    }
+
+    public List<VehicleInterface> getVehicles() {
+        return vehicleDao.getVehicles();
     }
 }
 

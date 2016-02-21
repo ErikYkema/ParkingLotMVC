@@ -21,27 +21,22 @@ public class ElectricCar implements VehicleInterface {
     }
     public ElectricCar() { }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
 
-    @Override
     public ParkingSpaceTypeEnum getType() {
         return type;
     }
 
-    @Override
     public String getLicensePlate() {
         return licensePlate;
     }
 
-    @Override
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }

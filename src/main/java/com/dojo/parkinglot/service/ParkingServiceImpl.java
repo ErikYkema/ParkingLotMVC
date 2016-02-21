@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @Service("parkingService")
 public class ParkingServiceImpl implements ParkingServiceInterface {
@@ -46,4 +47,9 @@ public class ParkingServiceImpl implements ParkingServiceInterface {
 		ParkingTicket ticket = parkingLot.releaseParkingSpace(licensePlate);
 		return ticket;
 	}
+
+	public List<VehicleInterface> getVehicles() {
+		return repository.getVehicles();
+	}
+
 }
