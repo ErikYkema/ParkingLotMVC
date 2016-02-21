@@ -22,7 +22,21 @@
 
 <h2>Plain REST API</h2>
 <li><a href="/webapi/restResource/properties">GET parking lot properties</a></li>
-<li><a href="/webapi/restResource/vehicles">GET known vehicles</a></li>
+</p>
+
+<h2>Known cars in this parkinglot</h2>
+<table cellpadding="15" border="1" style="background-color: #ffffcc;">
+<tr>
+<th>Type</th><th>License Plate</th>
+</tr>
+<c:forEach items="${it.vehicles}" var="vehicle">
+    <tr>
+    <td>${vehicle.licensePlate}</td>
+    <td>${vehicle.type}</td>
+    </tr>
+</c:forEach>
+<table>
+</p>
 
 
 <h2>Size of parking lot ${it.parkingLot.properties.name}</h2>

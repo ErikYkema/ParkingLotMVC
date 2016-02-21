@@ -91,7 +91,7 @@ public class ParkingResource implements ParkingResourceInterface {
 	@Path(ADMIN_RESOURCE)
 	@Produces(MediaType.TEXT_HTML)
 	public Response admin() {
-		AdminModel model = new AdminModel(parkingService.getParkingLot());
+		AdminModel model = new AdminModel(parkingService.getParkingLot(), parkingService.getVehicles());
 		return Response.ok(new Viewable(getTemplate(ADMIN_RESOURCE), model)).build();
 	}
 
